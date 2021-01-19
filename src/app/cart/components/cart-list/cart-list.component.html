@@ -1,0 +1,12 @@
+<div fxLayout="column">
+    <h1 fxLayoutAlign="center center">
+        Корзина
+    </h1>
+    <div fxLayout="column" fxFlex="100%" fxLayoutGap="10px" *ngIf="getProducts().length > 0; else empty">
+        <app-product *ngFor="let product of getProducts(); trackBy: trackByItems" [product]="product">
+        </app-product>
+    </div>
+    <ng-template #empty>
+        Корзина пуста
+    </ng-template>
+</div>

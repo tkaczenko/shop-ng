@@ -1,0 +1,42 @@
+<mat-card fxFlex="100%" fxLayoutGap="5px">
+    <mat-card-title color="primary">
+        <span fxFlex="100%">
+            <mat-icon color="accent" matTooltip="В наличии" *ngIf="product.isAvailable">
+                done
+            </mat-icon>
+            <mat-icon color="accent" matTooltip="Нет в наличии" *ngIf="!product.isAvailable">
+                clear
+            </mat-icon>
+            {{ product.id }} - {{ product.name }}
+        </span>
+        <span fxFlex="100%" *ngIf="product.quantity">
+            кол-во - {{ product.quantity }}
+        </span>
+    </mat-card-title>
+    <mat-card-content>
+        <div>
+            <p fxFlex="50%">Наименование</p>
+            <p fxFlex="50%">{{ product.name }}</p>
+        </div>
+        <div>
+            <p fxFlex="50%">Категория</p>
+            <p fxFlex="50%">{{ product.category }}</p>
+        </div>
+        <div>
+            <p fxFlex="50%">Цена</p>
+            <p fxFlex="50%">{{ product.price }}</p>
+        </div>
+        <div>
+            <p fxFlex="50%">Описание</p>
+            <p fxFlex="50%">{{ product.decsription }}</p>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <button type="button" color="primary" mat-mini-fab matTooltip="Добавить в корзину" (click)="onAdd()">
+            <mat-icon>add</mat-icon>
+        </button>
+        <button type="button" color="accent" mat-raised-button (click)="onBuy()">
+            Купить
+        </button>
+    </mat-card-actions>
+</mat-card>
