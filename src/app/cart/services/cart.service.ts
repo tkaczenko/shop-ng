@@ -17,6 +17,7 @@ export class CartService {
       product.quantity = 1;
       this.products.push(product);
     } else {
+      // может быть find() подойдет?
       this.products.forEach(item => {
         if (item.id === product.id) {
           if (item.quantity) {

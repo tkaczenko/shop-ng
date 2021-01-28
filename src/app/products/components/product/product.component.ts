@@ -11,8 +11,10 @@ export class ProductComponent implements OnInit {
   @Input()
   product: ProductModel;
 
+  // желательно не внедрять сюда сервис, а внедрить его на уровне родителя
+  // такой компонент будет только презентационным и более простым
   constructor(private cartService: CartService) {
-    
+
   }
 
   ngOnInit(): void {
