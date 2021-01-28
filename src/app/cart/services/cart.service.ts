@@ -28,6 +28,11 @@ export class CartService {
     return this.products;
   }
 
+  getTotal(): number {
+    return this.products.map((product: ProductModel) => product.price)
+      .reduce((prev, next) => prev + next);
+  }
+
   private isProductInCart(id: number): boolean {
     return this.products.some((item) => item.id === id);
   }
