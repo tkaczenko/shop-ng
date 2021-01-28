@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ProductModel } from 'src/app/shared/models/product.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CartService {
   private products: ProductModel[] = [];
@@ -17,14 +17,10 @@ export class CartService {
       product.quantity = 1;
       this.products.push(product);
     } else {
-      // может быть find() подойдет?
-      this.products.forEach(item => {
-        if (item.id === product.id) {
-          if (item.quantity) {
-            item.quantity += 1;
-          }
-        }
-      });
+      const found = this.products.find((item) => item.id === product.id);
+      if (found != null && found.quantity) {
+        found.quantity += 1;
+      }
     }
   }
 
@@ -33,6 +29,6 @@ export class CartService {
   }
 
   private isProductInCart(id: number): boolean {
-    return this.products.some(item => item.id === id);
+    return this.products.some((item) => item.id === id);
   }
 }

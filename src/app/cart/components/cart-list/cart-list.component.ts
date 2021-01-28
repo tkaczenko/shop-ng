@@ -5,14 +5,12 @@ import { CartService } from '../../services/cart.service';
 @Component({
   selector: 'app-cart-list',
   templateUrl: './cart-list.component.html',
-  styleUrls: ['./cart-list.component.scss']
+  styleUrls: ['./cart-list.component.scss'],
 })
 export class CartListComponent implements OnInit {
-
   constructor(private cartService: CartService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   getProducts(): ProductModel[] {
     return this.cartService.getAll();

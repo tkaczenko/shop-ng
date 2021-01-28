@@ -1,10 +1,9 @@
-<div fxLayout="column">
+<div fxLayout="column" *ngIf="getProducts() as products">
     <h1 fxLayoutAlign="center center">
         Корзина
     </h1>
-    <!-- может быть можно как-то избавиться от двух вызовов  getProducts()? -->
-    <div fxLayout="column" fxFlex="100%" fxLayoutGap="10px" *ngIf="getProducts().length > 0; else empty">
-        <app-product *ngFor="let product of getProducts(); trackBy: trackByItems" [product]="product">
+    <div fxLayout="column" fxFlex="100%" fxLayoutGap="10px" *ngIf="products.length > 0; else empty">
+        <app-product *ngFor="let product of products; trackBy: trackByItems" [product]="product">
         </app-product>
     </div>
     <ng-template #empty>
