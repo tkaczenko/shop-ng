@@ -25,12 +25,12 @@ export class CartService {
   }
 
   update(product: ProductModel): void {
-    const index = this.products.findIndex(item => product.id == item.id);
+    const index = this.products.findIndex(item => product.id === item.id);
     this.products[index] = product;
   }
 
   remove(id: number): void {
-    this.products = this.products.filter(item => id != item.id);
+    this.products = this.products.filter(item => id !== item.id);
   }
 
   getAll(): ProductModel[] {

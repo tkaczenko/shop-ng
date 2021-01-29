@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, ElementRef, EventEmitter, ViewChild } from '@angular/core';
+import { Renderer2 } from '@angular/core';
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { ProductModel } from 'src/app/shared/models/product.model';
 
@@ -17,9 +18,13 @@ export class CartItemComponent implements OnInit {
   @Output()
   updatedItem = new EventEmitter<ProductModel>();
 
+  quantity?: any;
+  error: string;
+
   constructor() { }
 
   ngOnInit(): void {
+    this.quantity = this.item.quantity;
   }
 
   onMinus(): void {
@@ -48,5 +53,16 @@ export class CartItemComponent implements OnInit {
 
   onRemove(): void {
     this.removedItem.emit(this.item.id);
+  }
+
+  onBlur(): void {
+    const temp = parseInt(this.quantity, 10);
+    if (isNaN(temp)) {
+      alert('не верное значение');
+    }
+  }
+
+  onFocus(): void {
+
   }
 }

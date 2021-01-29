@@ -6,9 +6,9 @@
 6. Implemented `CartItemComponent`.
 7. Used @Input(), @Output().
 8. Used OnPush.
-9. none
-10. none
-11. none
+9. Used `ngOnInit()`, `ngAfterViewInit()`
+10. CartItemComponent with `onBlur()` and `onClick()`
+11. Added title element for `AppComponent` to set header from class
 12. none
 13. none
 14. none

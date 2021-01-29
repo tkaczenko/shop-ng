@@ -3,9 +3,11 @@
         <span fxFlex="100%">
             {{ item.id }} - {{ item.name }}
         </span>
-        <span fxFlex="100%" *ngIf="item.quantity">
-            кол-во - {{ item.quantity }}
-        </span>
+        <mat-form-field fxFlex="100%" *ngIf="item.quantity">
+            <mat-label>Кол-во</mat-label>
+            <input matInput [(ngModel)]="quantity" (blur)="onBlur()" (focus)="onFocus()">
+            <ng-template #error></ng-template>
+        </mat-form-field>
     </mat-card-title>
     <mat-card-content>
         <div>
@@ -24,7 +26,7 @@
     <mat-card-actions fxLayoutGap="5px" fxLayoutAlign="end center">
         <button type="button" color="primary" mat-mini-fab matTooltip="Добавить" (click)="onPlus()">
             <mat-icon>add</mat-icon>
-        </button> 
+        </button>
         <button type="button" color="primary" mat-mini-fab matTooltip="Убавить" (click)="onMinus()">
             <mat-icon>remove</mat-icon>
         </button>
