@@ -1,8 +1,17 @@
-1. Initiated project.
-2. Implemented ProductComponent, ProductsService, ProductListComponent
-3. Implemented CartListComponent, CartService.
-4. Added Angular Material as a module.
-5. Created Shared module
+1. Created modules: `AppModule, CartModule, ProductsModule, SharedModule`.
+2. Updated ProductListComponent: implemented `getProducts()` for presenter. 
+3. Updated ProductComponent to disable buttons if item is not available.
+4. Implemented `CartService#getTotal()`, `CartService#getTotalAmount()`.
+5. Showing totalQuantity, totalAmount in `CartListComponent`
+6. Implemented `CartItemComponent`.
+7. Used @Input(), @Output().
+8. Used OnPush.
+9. none
+10. none
+11. none
+12. none
+13. none
+14. none
 
 Questions:
 Do we need to use `strictPropertyInitialization` in `tsconfig.json` to avoid lint errors with @Input declaration

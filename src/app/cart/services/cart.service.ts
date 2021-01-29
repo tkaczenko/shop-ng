@@ -24,13 +24,35 @@ export class CartService {
     }
   }
 
+  update(product: ProductModel): void {
+    const index = this.products.findIndex(item => product.id == item.id);
+    this.products[index] = product;
+  }
+
+  remove(id: number): void {
+    this.products = this.products.filter(item => id != item.id);
+  }
+
   getAll(): ProductModel[] {
     return this.products;
   }
 
-  getTotal(): number {
-    return this.products.map((product: ProductModel) => product.price)
-      .reduce((prev, next) => prev + next);
+  getTotalAmount(): number {
+    if (this.products.length < 1) {
+      return 0;
+    } else {
+      return this.products.map(product => product.price)
+        .reduce((prev, next) => prev + next);
+    }
+  }
+
+  getTotalQuantity(): number {
+    if (this.products.length < 1) {
+      return 0;
+    } else {
+      return this.products.map(product => product.quantity ? product.quantity : 0)
+        .reduce((prev, next) => prev + next);
+    }
   }
 
   private isProductInCart(id: number): boolean {

@@ -3,8 +3,13 @@
         Корзина
     </h1>
     <div fxLayout="column" fxFlex="100%" fxLayoutGap="10px" *ngIf="products.length > 0; else empty">
-        <app-product *ngFor="let product of products; trackBy: trackByItems" [product]="product">
-        </app-product>
+        <app-cart-item *ngFor="let product of products; trackBy: trackByItems" [item]="product"
+            (removedItem)="onRemoveItem($event)" (updatedItem)="onUpdateItem($event)">
+        </app-cart-item>
+        <div fxLayout="column" fxLayoutAlign="center end">
+            <p>Итого: {{ getTotalAmount() }}</p>
+            <p>Кол-во: {{ getTotalQuantity() }}</p>
+        </div>
     </div>
     <ng-template #empty>
         Корзина пуста

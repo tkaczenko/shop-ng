@@ -9,9 +9,6 @@
             </mat-icon>
             {{ product.id }} - {{ product.name }}
         </span>
-        <span fxFlex="100%" *ngIf="product.quantity">
-            кол-во - {{ product.quantity }}
-        </span>
     </mat-card-title>
     <mat-card-content>
         <div>
@@ -32,10 +29,10 @@
         </div>
     </mat-card-content>
     <mat-card-actions>
-        <button type="button" color="primary" mat-mini-fab matTooltip="Добавить в корзину" (click)="onAdd()">
+        <button type="button" color="primary" mat-mini-fab matTooltip="Добавить в корзину" [disabled]="!product.isAvailable" (click)="onAdd()">
             <mat-icon>add</mat-icon>
         </button>
-        <button type="button" color="accent" mat-raised-button (click)="onBuy()">
+        <button type="button" color="accent" mat-raised-button [disabled]="!product.isAvailable" (click)="onBuy()">
             Купить
         </button>
     </mat-card-actions>
