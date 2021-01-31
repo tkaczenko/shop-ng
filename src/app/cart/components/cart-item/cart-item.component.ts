@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ElementRef, EventEmitter, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ElementRef, EventEmitter, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { Renderer2 } from '@angular/core';
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { ProductModel } from 'src/app/shared/models/product.model';
@@ -9,7 +9,7 @@ import { ProductModel } from 'src/app/shared/models/product.model';
   styleUrls: ['./cart-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CartItemComponent implements OnInit {
+export class CartItemComponent implements OnChanges {
   @Input()
   item: ProductModel;
 
@@ -23,7 +23,7 @@ export class CartItemComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnChanges(changes: SimpleChanges): void {
     this.quantity = this.item.quantity;
   }
 

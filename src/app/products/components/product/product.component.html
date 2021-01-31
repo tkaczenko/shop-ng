@@ -1,4 +1,7 @@
-<mat-card fxFlex="100%" fxLayoutGap="5px">
+<mat-card fxFlex="100%" fxLayoutGap="5px" [ngClass]="{
+    'phones': CATEGORY.PHONES === product.category, 
+    'laptops': CATEGORY.LAPTOPS === product.category, 
+    'watches': CATEGORY.WATCHES === product.category}">
     <mat-card-title color="primary">
         <span fxFlex="100%">
             <mat-icon color="accent" matTooltip="В наличии" *ngIf="product.isAvailable">

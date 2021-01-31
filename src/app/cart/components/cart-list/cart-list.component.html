@@ -3,7 +3,7 @@
         Корзина
     </h1>
     <div fxLayout="column" fxFlex="100%" fxLayoutGap="10px" *ngIf="products.length > 0; else empty">
-        <app-cart-item appHighlight *ngFor="let product of products; trackBy: trackByItems" [item]="product"
+        <app-cart-item *ngFor="let product of products; trackBy: trackByItems" [item]="product"
             (removedItem)="onRemoveItem($event)" (updatedItem)="onUpdateItem($event)">
         </app-cart-item>
         <div fxLayout="column" fxLayoutAlign="center end">
