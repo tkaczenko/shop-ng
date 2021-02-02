@@ -4,11 +4,15 @@
     </h1>
     <div fxLayout="column" fxFlex="100%" fxLayoutGap="10px" *ngIf="products.length > 0; else empty">
         <app-cart-item *ngFor="let product of products; trackBy: trackByItems" [item]="product"
-            (removedItem)="onRemoveItem($event)" (changedItem)="onChangeItem($event)">
+            (removedItem)="onRemoveItem($event)" (changedItem)="onChangeItem($event)"
+            (increasedItem)="onIncreaseItem($event)" (decreasedItem)="onDecreaseItem($event)">
         </app-cart-item>
         <div fxLayout="column" fxLayoutAlign="center end">
-            <p>Итого: {{ getTotalAmount() }}</p>
+            <p>Итого: {{ getTotalSum() }}</p>
             <p>Кол-во: {{ getTotalQuantity() }}</p>
+            <button type="button" color="accent" mat-raised-button (click)="onRemove()">
+                Oчистить
+            </button>
         </div>
     </div>
     <ng-template #empty>

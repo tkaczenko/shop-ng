@@ -17,6 +17,7 @@ export class CartService {
     } else {
       product.quantity = 1;
       this.cartProducts.push(product);
+      this.updateCartData();
     }
   }
 
@@ -47,15 +48,15 @@ export class CartService {
     this.updateCartData();
   }
 
-  get getProducts(): ProductModel[] {
+  getProducts(): ProductModel[] {
     return this.cartProducts;
   }
 
-  get getTotalQuantity(): number {
+  getTotalQuantity(): number {
     return this.totalQuantity;
   }
 
-  get getTotalSum(): number {
+  getTotalSum(): number {
     return this.totalSum;
   }
 
@@ -68,7 +69,7 @@ export class CartService {
     if (this.cartProducts.length < 1) {
       return 0;
     } else {
-      return this.cartProducts.map(product => product.price)
+      return this.cartProducts.map(product => product.price * (product.quantity ? product.quantity : 0))
         .reduce((prev, next) => prev + next);
     }
   }
