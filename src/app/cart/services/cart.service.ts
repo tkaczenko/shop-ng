@@ -22,11 +22,11 @@ export class CartService {
   }
 
   increaseQuantity(id: number, quantity: number | undefined): void {
-    this.changeQuantity(id, (quantity ? quantity : 0) + 1);
+    this.changeQuantity(id, (quantity != null ? quantity : 0) + 1);
   }
 
   decreaseQuantity(id: number, quantity: number | undefined): void {
-    this.changeQuantity(id, (quantity ? quantity : 0) - 1);
+    this.changeQuantity(id, (quantity != null ? quantity : 0) - 1);
   }
 
   changeQuantity(id: number, quantity: number | undefined): void {
@@ -34,7 +34,7 @@ export class CartService {
       return this.removeProduct(id);
     }
     const index = this.cartProducts.findIndex(item => id === item.id);
-    this.cartProducts[index].quantity = quantity;
+    this.cartProducts[index].quantity = (quantity != null ? quantity : 0);
     this.updateCartData();
   }
 

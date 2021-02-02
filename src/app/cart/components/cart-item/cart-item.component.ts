@@ -42,10 +42,9 @@ export class CartItemComponent implements OnChanges {
   }
 
   onChange(): void {
-    console.log(this.quantity);
     this.changedItem.emit({
       id: this.item.id,
-      quantity: this.quantity
+      quantity: parseInt(this.quantity, 10)
     });
   }
 
