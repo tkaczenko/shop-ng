@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, ElementRef, EventEmitter, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
-import { Renderer2 } from '@angular/core';
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { ProductModel } from 'src/app/shared/models/product.model';
 
@@ -15,8 +14,12 @@ export class CartItemComponent implements OnChanges {
 
   @Output()
   removedItem = new EventEmitter<number>();
+  // @Output()
+  // increasedItem = new EventEmitter<ProductModel>();
+  // @Output()
+  // decreasedItem = new EventEmitter<ProductModel>();
   @Output()
-  updatedItem = new EventEmitter<ProductModel>();
+  changedItem = new EventEmitter<ProductModel>();
 
   quantity?: any;
   error: string;
@@ -28,31 +31,19 @@ export class CartItemComponent implements OnChanges {
   }
 
   onMinus(): void {
-    if (this.item.quantity) {
-      const item: ProductModel = {
-        ...this.item,
-        quantity: this.item.quantity - 1
-      };
-      if (item.quantity != null && item.quantity < 1) {
-        this.removedItem.emit(item.id);
-      } else {
-        this.updatedItem.emit(item);
-      }
-    }
+    // this.decreasedItem.emit(this.item);
   }
 
   onPlus(): void {
-    if (this.item.quantity) {
-      const item: ProductModel = {
-        ...this.item,
-        quantity: this.item.quantity + 1
-      };
-      this.updatedItem.emit(item);
-    }
+    // this.increasedItem.emit(this.item);
   }
 
   onRemove(): void {
     this.removedItem.emit(this.item.id);
+  }
+
+  onChange(): void {
+    this.changedItem.emit(this.item);
   }
 
   onBlur(): void {
@@ -60,9 +51,5 @@ export class CartItemComponent implements OnChanges {
     if (isNaN(temp)) {
       alert('не верное значение');
     }
-  }
-
-  onFocus(): void {
-
   }
 }
