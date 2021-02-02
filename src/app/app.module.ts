@@ -8,6 +8,7 @@ import { MaterialModule } from './material/material.module';
 import { SharedModule } from './shared/shared.module';
 import { ProductsModule } from './products/products.module';
 import { CartModule } from './cart/cart.module';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CartModule } from './cart/cart.module';
     MaterialModule,
     SharedModule,
     ProductsModule,
-    CartModule
+    CartModule,
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
