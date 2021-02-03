@@ -12,7 +12,6 @@ export class AppComponent implements AfterViewInit {
   header: ElementRef;
 
   ngAfterViewInit(): void {
-    console.log('ss');
     this.header.nativeElement.textContent = this.title;
   }
 }

@@ -12,20 +12,32 @@ export class CartListComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  onUpdateItem(product: ProductModel): void {
-    this.cartService.update(product);
+  onChangeItem(event: {id: number, quantity: number}): void {
+    this.cartService.changeQuantity(event.id, event.quantity);
+  }
+
+  onIncreaseItem(product: ProductModel): void {
+    this.cartService.increaseQuantity(product.id, product.quantity);
+  }
+
+  onDecreaseItem(product: ProductModel): void {
+    this.cartService.decreaseQuantity(product.id, product.quantity);
   }
 
   onRemoveItem(id: number): void {
-    this.cartService.remove(id);
+    this.cartService.removeProduct(id);
+  }
+
+  onRemove(): void {
+    this.cartService.removeAllProducts();
   }
 
   getProducts(): ProductModel[] {
-    return this.cartService.getAll();
+    return this.cartService.getProducts();
   }
 
-  getTotalAmount(): number {
-    return this.cartService.getTotalAmount();
+  getTotalSum(): number {
+    return this.cartService.getTotalSum();
   }
 
   getTotalQuantity(): number {
