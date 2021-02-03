@@ -12,9 +12,10 @@ const components = [
   CartListComponent,
   CartItemComponent,
 ];
-const providers = [
-  CartService
-];
+// Уже зарегистрирован через свой декоратор
+// const providers = [
+//   CartService
+// ];
 @NgModule({
   declarations: components,
   imports: [
@@ -23,7 +24,7 @@ const providers = [
     MaterialModule,
     SharedModule,
   ],
-  providers,
+  // providers,
   exports: components
 })
 export class CartModule { }
