@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { SharedModule } from '../shared/shared.module';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductComponent } from './components/product/product.component';
-import { MaterialModule } from '../material/material.module';
 
 
 
@@ -13,8 +12,7 @@ const components = [
 @NgModule({
   declarations: components,
   imports: [
-    CommonModule,
-    MaterialModule
+    SharedModule
   ],
   exports: components
 })

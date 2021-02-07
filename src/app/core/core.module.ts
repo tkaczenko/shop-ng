@@ -1,6 +1,4 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MaterialModule } from '../material/material.module';
 import { SharedModule } from '../shared/shared.module';
 import { FirstComponent } from './components/first/first.component';
 import { ConfigModel } from './models/config.model';
@@ -18,8 +16,6 @@ export const configValue: ConfigModel = {
 @NgModule({
   declarations: [FirstComponent],
   imports: [
-    CommonModule,
-    MaterialModule,
     SharedModule,
   ],
   providers: [

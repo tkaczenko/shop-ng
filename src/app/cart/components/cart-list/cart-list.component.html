@@ -3,12 +3,21 @@
         Корзина
     </h1>
     <div fxLayout="column" fxFlex="100%" fxLayoutGap="10px" *ngIf="products.length > 0; else empty">
-        <app-cart-item *ngFor="let product of products; trackBy: trackByItems" [item]="product"
-            (removedItem)="onRemoveItem($event)" (changedItem)="onChangeItem($event)"
-            (increasedItem)="onIncreaseItem($event)" (decreasedItem)="onDecreaseItem($event)">
+        <div fxFlex="100%" fxLayoutGap="10px">
+            <mat-form-field fxFlex="70%" color="accent">
+                <mat-label>Сортировка</mat-label>
+                <mat-select multiple [(ngModel)]="selected">
+                    <mat-option *ngFor="let key of keys" [value]="key.key">{{ key.label }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-checkbox fxFlex="30%" fxLayoutAlign="start center" [(ngModel)]="isAsc">По возростанию</mat-checkbox>
+        </div>
+        <app-cart-item *ngFor="let product of products | orderBy:selected:isAsc" [item]="product" (removedItem)="onRemoveItem($event)"
+            (changedItem)="onChangeItem($event)" (increasedItem)="onIncreaseItem($event)"
+            (decreasedItem)="onDecreaseItem($event)">
         </app-cart-item>
         <div fxLayout="column" fxLayoutAlign="center end">
-            <p>Итого: {{ getTotalSum() }}</p>
+            <p>Итого: {{ getTotalSum() | currency:'UAH':'symbol' }}</p>
             <p>Кол-во: {{ getTotalQuantity() }}</p>
             <button type="button" color="accent" mat-raised-button (click)="onRemove()">
                 Oчистить

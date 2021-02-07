@@ -8,11 +8,28 @@ import { CartService } from '../../services/cart.service';
   styleUrls: ['./cart-list.component.scss'],
 })
 export class CartListComponent implements OnInit {
+  keys = [{
+    key: 'price',
+    label: 'Цена'
+  },
+  {
+    key: 'quantity',
+    label: 'Кол-во'
+  },
+  {
+    key: 'name',
+    label: 'Наименование'
+  }];
+
+  selected = ['price', 'quantity', 'name'];
+
+  isAsc = false;
+
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void { }
 
-  onChangeItem(event: {id: number, quantity: number}): void {
+  onChangeItem(event: { id: number, quantity: number }): void {
     this.cartService.changeQuantity(event.id, event.quantity);
   }
 
