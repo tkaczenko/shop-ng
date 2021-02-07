@@ -1,7 +1,7 @@
 <mat-card appHighlight fxFlex="100%" fxLayoutGap="5px">
     <mat-card-title color="primary">
         <span fxFlex="100%">
-            {{ item.id }} - {{ item.name }}
+            {{ item.id }} - {{ item.name | uppercase }}
         </span>
         <mat-form-field fxFlex="100%" *ngIf="item.quantity">
             <mat-label>Кол-во</mat-label>
@@ -12,7 +12,7 @@
     <mat-card-content>
         <div>
             <p fxFlex="50%">Наименование</p>
-            <p fxFlex="50%">{{ item.name }}</p>
+            <p fxFlex="50%">{{ item.name | uppercase }}</p>
         </div>
         <div>
             <p fxFlex="50%">Категория</p>
@@ -20,7 +20,7 @@
         </div>
         <div>
             <p fxFlex="50%">Цена</p>
-            <p fxFlex="50%">{{ item.price }}</p>
+            <p fxFlex="50%">{{ item.price | currency:'UAH':'symbol-narrow' }}</p>
         </div>
     </mat-card-content>
     <mat-card-actions fxLayoutGap="5px" fxLayoutAlign="end center">

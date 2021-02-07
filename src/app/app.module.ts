@@ -18,7 +18,6 @@ import { CoreModule } from './core/core.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule,
     SharedModule,
     ProductsModule,
     CartModule,

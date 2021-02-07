@@ -7,7 +7,7 @@ import { ProductModel } from 'src/app/shared/models/product.model';
   templateUrl: './cart-item.component.html',
   styleUrls: ['./cart-item.component.scss'],
 })
-export class CartItemComponent implements OnChanges {
+export class CartItemComponent implements DoCheck {
   @Input()
   item: ProductModel;
 
@@ -25,7 +25,7 @@ export class CartItemComponent implements OnChanges {
 
   constructor() { }
 
-  ngOnChanges(): void {
+  ngDoCheck(): void {
     this.quantity = this.item.quantity;
   }
 
