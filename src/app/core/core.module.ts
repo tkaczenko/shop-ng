@@ -29,7 +29,7 @@ export const configValue: ConfigModel = {
     },
     {
       provide: generatedString,
-      useFactory: () => generatorFactory(15),
+      useFactory: generatorFactory(15),
       deps: [GeneratorService]
     },
     {
