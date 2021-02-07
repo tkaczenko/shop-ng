@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { MaterialModule } from '../material/material.module';
+import { SharedModule } from '../shared/shared.module';
+import { FirstComponent } from './components/first/first.component';
 import { ConfigModel } from './models/config.model';
 import { configToken, generatedString, generatorFactory } from './services/constants.service';
-import { FirstComponent } from './components/first/first.component';
 import { GeneratorService } from './services/generator.service';
-import { MaterialModule } from '../material/material.module';
 import { LocalStorageService } from './services/local-storage.service';
-import { SharedModule } from '../shared/shared.module';
 
 export const configValue: ConfigModel = {
   id: '',
