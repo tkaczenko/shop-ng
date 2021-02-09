@@ -34,11 +34,13 @@ export class CartService {
       return this.removeProduct(id);
     }
     const index = this.cartProducts.findIndex(item => id === item.id);
+    // мутация
     this.cartProducts[index].quantity = (quantity != null ? quantity : 0);
     this.updateCartData();
   }
 
   removeProduct(id: number): void {
+    // пересоздание ссылки
     this.cartProducts = this.cartProducts.filter(item => id !== item.id);
     this.updateCartData();
   }
