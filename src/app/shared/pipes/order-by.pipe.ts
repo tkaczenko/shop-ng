@@ -11,6 +11,10 @@ export class OrderByPipe implements PipeTransform {
       return value;
     }
     fields.forEach(field => {
+      // подозреваю, что тут будет сортировка по первому полю,
+      // а затем массив пересортируется по второму полю, но эта вторая сортировка
+      // не будет в рамках одинаковых значений первого поля, а просто пересортирует массив,
+      // верно?
       value.sort((a: any, b: any) => {
         if (a[field] < b[field]) {
           return isAsc ? -1 : 1;
