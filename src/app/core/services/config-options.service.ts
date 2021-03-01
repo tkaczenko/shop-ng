@@ -8,7 +8,7 @@ import { configToken } from './constants.service';
 export class ConfigOptionsService {
   constructor(@Inject(configToken) private config: ConfigModel) { }
 
-  update(config: ConfigUpdate): ConfigModel {
+  update(config: Partial<ConfigModel>): ConfigModel {
     return  this.config = {
       ...this.config,
       ...config
@@ -20,8 +20,9 @@ export class ConfigOptionsService {
   }
 }
 
-export interface ConfigUpdate {
-  id?: string;
-  login?: string;
-  email?: string;
-}
+// ConfigUpdate === Partial<ConfigModel>
+// export interface ConfigUpdate {
+//   id?: string;
+//   login?: string;
+//   email?: string;
+// }
