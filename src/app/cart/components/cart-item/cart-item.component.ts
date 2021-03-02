@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, DoCheck, ElementRef, EventEmitter, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, DoCheck, EventEmitter, Input, Output } from '@angular/core';
 import { ProductModel } from 'src/app/shared/models/product.model';
 
 @Component({
@@ -18,7 +17,7 @@ export class CartItemComponent implements DoCheck {
   @Output()
   decreasedItem = new EventEmitter<ProductModel>();
   @Output()
-  changedItem = new EventEmitter<{id: number, quantity: number}>();
+  changedItem = new EventEmitter<{ id: number, quantity: number }>();
 
   quantity?: any;
   error: string;

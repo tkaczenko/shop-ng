@@ -1,6 +1,6 @@
 <div [appClick]="'20px'">
     <p fxFlex="30%">cartService</p>
-    <p fxFlex="70%">{{ cartService | json}}</p>
+    <p fxFlex="70%">{{ (cartItems$ | async) | json}}</p>
 </div>
 <div [appClick]="'20px'">
     <p fxFlex="30%">configOptionsService</p>
