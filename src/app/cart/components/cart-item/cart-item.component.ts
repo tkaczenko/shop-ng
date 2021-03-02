@@ -11,13 +11,13 @@ export class CartItemComponent implements DoCheck {
   item: ProductModel;
 
   @Output()
-  removedItem = new EventEmitter<number>();
+  removedItem = new EventEmitter<string>();
   @Output()
   increasedItem = new EventEmitter<ProductModel>();
   @Output()
   decreasedItem = new EventEmitter<ProductModel>();
   @Output()
-  changedItem = new EventEmitter<{ id: number, quantity: number }>();
+  changedItem = new EventEmitter<{ id: string, quantity: number }>();
 
   quantity?: any;
   error: string;

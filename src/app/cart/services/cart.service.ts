@@ -32,15 +32,15 @@ export class CartService {
     }
   }
 
-  increaseQuantity(id: number, quantity: number | undefined): void {
+  increaseQuantity(id: string, quantity: number | undefined): void {
     this.changeQuantity(id, (quantity != null ? quantity : 0) + 1);
   }
 
-  decreaseQuantity(id: number, quantity: number | undefined): void {
+  decreaseQuantity(id: string, quantity: number | undefined): void {
     this.changeQuantity(id, (quantity != null ? quantity : 0) - 1);
   }
 
-  changeQuantity(id: number, quantity: number | undefined): void {
+  changeQuantity(id: string, quantity: number | undefined): void {
     if (quantity == null || quantity < 1) {
       return this.removeProduct(id);
     }
@@ -57,7 +57,7 @@ export class CartService {
     this.updateCartData();
   }
 
-  removeProduct(id: number): void {
+  removeProduct(id: string): void {
     // пересоздание ссылки
     this.cartItems = this.cartItems.filter(item => id !== item.id);
     this.updateCartData();
@@ -100,7 +100,7 @@ export class CartService {
     }
   }
 
-  private getProductInCart(id: number): ProductModel | undefined {
+  private getProductInCart(id: string): ProductModel | undefined {
     return this.cartItems.find((item) => item.id === id);
   }
 }

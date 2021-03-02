@@ -34,7 +34,7 @@ export class CartListComponent implements OnInit {
     this.cartItems$ = this.cartService.getProducts();
   }
 
-  onChangeItem(event: { id: number, quantity: number }): void {
+  onChangeItem(event: { id: string, quantity: number }): void {
     this.cartService.changeQuantity(event.id, event.quantity);
   }
 
@@ -46,7 +46,7 @@ export class CartListComponent implements OnInit {
     this.cartService.decreaseQuantity(product.id, product.quantity);
   }
 
-  onRemoveItem(id: number): void {
+  onRemoveItem(id: string): void {
     this.cartService.removeProduct(id);
   }
 
@@ -62,7 +62,7 @@ export class CartListComponent implements OnInit {
     return this.cartService.getTotalQuantity();
   }
 
-  trackByItems(index: number, item: ProductModel): number {
+  trackByItems(index: number, item: ProductModel): string {
     return item.id;
   }
 }

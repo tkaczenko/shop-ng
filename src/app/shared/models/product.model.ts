@@ -1,7 +1,7 @@
 import { Category } from 'src/app/shared/models/category.model';
 
 export interface ProductModel {
-    id: number;
+    id: string;
     name: string;
     description: string;
     price: number;
