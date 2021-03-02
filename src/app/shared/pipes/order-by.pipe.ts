@@ -6,26 +6,30 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class OrderByPipe implements PipeTransform {
 
   transform(value: any[], fields: string[], isAsc: boolean = false): any[] {
-    console.log(value);
-    if (!Array.isArray(value)) {
+    if (!Array.isArray(value) || !Array.isArray(fields) || fields.length === 0) {
       return value;
     }
-    fields.forEach(field => {
-      // подозреваю, что тут будет сортировка по первому полю,
-      // а затем массив пересортируется по второму полю, но эта вторая сортировка
-      // не будет в рамках одинаковых значений первого поля, а просто пересортирует массив,
-      // верно?
-      value.sort((a: any, b: any) => {
-        if (a[field] < b[field]) {
-          return isAsc ? -1 : 1;
-        } else if (a[field] > b[field]) {
-          return isAsc ? 1 : -1;
-        } else {
-          return 0;
+    const sorted = [...value];
+    sorted.sort((a: any, b: any) => {
+      for (const field of fields) {
+        const compared = this.compare(a[field], b[field], isAsc);
+        if (compared === 0) {
+          continue;
         }
-      });
+        return compared;
+      }
+      return this.compare(a[fields[0]], b[fields[0]], isAsc);
     });
-    return value;
+    return sorted;
   }
 
+  private compare(a: any, b: any, isAsc: boolean): number {
+    if (a < b) {
+      return isAsc ? -1 : 1;
+    } else if (a > b) {
+      return isAsc ? 1 : -1;
+    } else {
+      return 0;
+    }
+  }
 }

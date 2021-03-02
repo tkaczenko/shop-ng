@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ProductModel } from 'src/app/shared/models/product.model';
 import { CartService } from '../../services/cart.service';
 
@@ -25,9 +26,13 @@ export class CartListComponent implements OnInit {
 
   isAsc = false;
 
+  cartItems$: Observable<ProductModel[]>;
+
   constructor(private cartService: CartService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.cartItems$ = this.cartService.getProducts();
+  }
 
   onChangeItem(event: { id: number, quantity: number }): void {
     this.cartService.changeQuantity(event.id, event.quantity);
@@ -47,10 +52,6 @@ export class CartListComponent implements OnInit {
 
   onRemove(): void {
     this.cartService.removeAllProducts();
-  }
-
-  getProducts(): ProductModel[] {
-    return this.cartService.getProducts();
   }
 
   getTotalSum(): number {

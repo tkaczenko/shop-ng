@@ -1,22 +1,33 @@
 import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import { ProductModel } from 'src/app/shared/models/product.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
-  private cartProducts: ProductModel[] = [];
+  private cartItems: ProductModel[] = [];
   private totalQuantity: number;
   private totalSum: number;
 
+  private cart$: Subject<ProductModel[]> = new Subject();
+
+
   constructor() { }
 
+  getProducts(): Observable<Array<ProductModel>> {
+    return this.cart$.asObservable();
+  }
+
   addProduct(product: ProductModel): void {
-    if (this.isProductInCart(product.id)) {
-      this.increaseQuantity(product.id, product.quantity);
+    const productInCart = this.getProductInCart(product.id);
+    if (productInCart) {
+      this.increaseQuantity(productInCart.id, productInCart.quantity);
     } else {
-      product.quantity = 1;
-      this.cartProducts.push(product);
+      this.cartItems.push({
+        ...product,
+        quantity: 1
+      });
       this.updateCartData();
     }
   }
@@ -33,25 +44,28 @@ export class CartService {
     if (quantity == null || quantity < 1) {
       return this.removeProduct(id);
     }
-    const index = this.cartProducts.findIndex(item => id === item.id);
-    // мутация
-    this.cartProducts[index].quantity = (quantity != null ? quantity : 0);
+    const found = this.cartItems.find(item => id === item.id);
+    if (found) {
+      this.cartItems = [
+        ...this.cartItems.filter(item => id !== item.id),
+        {
+          ...found,
+          quantity: (quantity != null ? quantity : 0)
+        }
+      ];
+    }
     this.updateCartData();
   }
 
   removeProduct(id: number): void {
     // пересоздание ссылки
-    this.cartProducts = this.cartProducts.filter(item => id !== item.id);
+    this.cartItems = this.cartItems.filter(item => id !== item.id);
     this.updateCartData();
   }
 
   removeAllProducts(): void {
-    this.cartProducts = [];
+    this.cartItems = [];
     this.updateCartData();
-  }
-
-  getProducts(): ProductModel[] {
-    return this.cartProducts;
   }
 
   getTotalQuantity(): number {
@@ -65,27 +79,28 @@ export class CartService {
   private updateCartData(): void {
     this.totalQuantity = this.calculateTotalQuantity();
     this.totalSum = this.calculateTotalSum();
+    this.cart$.next(Array.from(this.cartItems.values()));
   }
 
   private calculateTotalSum(): number {
-    if (this.cartProducts.length < 1) {
+    if (this.cartItems.length < 1) {
       return 0;
     } else {
-      return this.cartProducts.map(product => product.price * (product.quantity ? product.quantity : 0))
+      return this.cartItems.map(product => product.price * (product.quantity ? product.quantity : 0))
         .reduce((prev, next) => prev + next);
     }
   }
 
   private calculateTotalQuantity(): number {
-    if (this.cartProducts.length < 1) {
+    if (this.cartItems.length < 1) {
       return 0;
     } else {
-      return this.cartProducts.map(product => product.quantity ? product.quantity : 0)
+      return this.cartItems.map(product => product.quantity ? product.quantity : 0)
         .reduce((prev, next) => prev + next);
     }
   }
 
-  private isProductInCart(id: number): boolean {
-    return this.cartProducts.some((item) => item.id === id);
+  private getProductInCart(id: number): ProductModel | undefined {
+    return this.cartItems.find((item) => item.id === id);
   }
 }

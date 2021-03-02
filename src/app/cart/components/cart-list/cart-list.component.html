@@ -1,4 +1,4 @@
-<div fxLayout="column" *ngIf="getProducts() as products">
+<div fxLayout="column" *ngIf="(cartItems$ | async) as products">
     <h1 fxLayoutAlign="center center">
         Корзина
     </h1>
