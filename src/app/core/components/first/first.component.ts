@@ -23,7 +23,7 @@ export class FirstComponent implements OnInit {
     @Optional() public generatorService: GeneratorService,
     @Optional() public localStorageService: LocalStorageService,
     @Inject(configToken) public configValue: ConfigModel,
-    @Inject(generatedString) public generatedValue: string,) { }
+    @Inject(generatedString) public generatedValue: string, ) { }
 
   ngOnInit(): void {
     this.cartItems$ = this.cartService.getProducts();

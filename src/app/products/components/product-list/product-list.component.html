@@ -2,8 +2,17 @@
     <h1 fxLayoutAlign="center center">
         Витрина
     </h1>
+    <mat-toolbar>
+        <mat-toolbar-row fxFlex="100%">
+            <span fxFlex></span>
+            <a fxLayoutAlign="end center" mat-icon-button color="accent" routerLink="/cart">
+                <mat-icon>shopping_cart</mat-icon>
+                <span>{{ getTotalQuantity() }}</span>
+            </a>
+        </mat-toolbar-row>
+    </mat-toolbar>
     <div fxLayout="column" fxFlex="100%" fxLayoutGap="10px">
-        <app-product *ngFor="let product of products | async" [product]="product" (addedToCart)="onAddToCart($event)">
-        </app-product>
+        <app-product-view *ngFor="let product of products | async" [product]="product" (addedToCart)="onAddToCart($event)">
+        </app-product-view>
     </div>
 </div>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ProductModel } from 'src/app/shared/models/product.model';
 
 @Injectable({
@@ -7,16 +7,16 @@ import { ProductModel } from 'src/app/shared/models/product.model';
 })
 export class CartService {
   private cartItems: ProductModel[] = [];
-  private totalQuantity: number;
-  private totalSum: number;
+  private totalQuantity: number = 0;
+  private totalSum: number = 0;
 
-  private cart$: Subject<ProductModel[]> = new Subject();
+  private subject$: BehaviorSubject<ProductModel[]> = new BehaviorSubject<ProductModel[]>([]);
 
+  constructor() {
+  }
 
-  constructor() { }
-
-  getProducts(): Observable<Array<ProductModel>> {
-    return this.cart$.asObservable();
+  getProducts(): Observable<ProductModel[]> {
+    return this.subject$.asObservable();
   }
 
   addProduct(product: ProductModel): void {
@@ -79,7 +79,7 @@ export class CartService {
   private updateCartData(): void {
     this.totalQuantity = this.calculateTotalQuantity();
     this.totalSum = this.calculateTotalSum();
-    this.cart$.next(Array.from(this.cartItems.values()));
+    this.subject$.next(Array.from(this.cartItems.values()));
   }
 
   private calculateTotalSum(): number {

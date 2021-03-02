@@ -1,3 +1,15 @@
+<mat-toolbar>
+    <mat-toolbar-row fxFlex="100%">
+        <a fxLayoutAlign="start center" mat-icon-button routerLink="/products">
+            <mat-icon>backspace</mat-icon>
+        </a>
+        <span fxFlex></span>
+        <a fxLayoutAlign="end center" mat-icon-button color="accent" routerLink="/cart">
+            <mat-icon>shopping_cart</mat-icon>
+            <span>{{ getTotalQuantity() }}</span>
+        </a>
+    </mat-toolbar-row>
+</mat-toolbar>
 <div fxLayout="column" *ngIf="(cartItems$ | async) as products">
     <h1 fxLayoutAlign="center center">
         Корзина

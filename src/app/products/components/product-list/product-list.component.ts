@@ -24,4 +24,8 @@ export class ProductListComponent implements OnInit {
   onAddToCart(product: ProductModel): void {
     this.cartService.addProduct(product);
   }
+
+  getTotalQuantity(): number {
+    return this.cartService.getTotalQuantity();
+  }
 }
