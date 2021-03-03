@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ProductModel } from 'src/app/shared/models/product.model';
 import { CartService } from '../../services/cart.service';
+import { NavigationService } from '../../services/navigation.service';
 
 @Component({
   selector: 'app-cart-list',
@@ -27,10 +28,14 @@ export class CartListComponent implements OnInit {
   isAsc = false;
 
   cartItems$: Observable<ProductModel[]>;
+  router$: BehaviorSubject<string>;
 
-  constructor(private cartService: CartService) { }
+  constructor(
+    private cartService: CartService,
+    private navigationService: NavigationService) { }
 
   ngOnInit(): void {
+    this.navigationService.pushValue('/products');
     this.cartItems$ = this.cartService.getProducts();
   }
 
@@ -48,18 +53,6 @@ export class CartListComponent implements OnInit {
 
   onRemoveItem(id: string): void {
     this.cartService.removeProduct(id);
-  }
-
-  onRemove(): void {
-    this.cartService.removeAllProducts();
-  }
-
-  getTotalSum(): number {
-    return this.cartService.getTotalSum();
-  }
-
-  getTotalQuantity(): number {
-    return this.cartService.getTotalQuantity();
   }
 
   trackByItems(index: number, item: ProductModel): string {

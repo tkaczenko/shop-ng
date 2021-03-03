@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { Category } from 'src/app/shared/models/category.model';
 import { ProductModel } from '../../shared/models/product.model';
@@ -33,11 +34,21 @@ export const PRODUCTS: ProductModel[] = [
 @Injectable({
   providedIn: 'root'
 })
-export class ProductsService {
+export class ProductsService implements Resolve<ProductModel[]> {
 
   constructor() { }
 
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): ProductModel[]
+    | Observable<ProductModel[]>
+    | Promise<ProductModel[]> {
+    return this.getProducts();
+  }
+
   getProducts(): Observable<ProductModel[]> {
     return of(PRODUCTS);
+  }
+
+  getProduct(id: string | null): Observable<any> {
+    return of(PRODUCTS.find(product => id === product.id));
   }
 }

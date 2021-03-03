@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { LocalStorageService } from 'src/app/core/services/local-storage.service';
 import { ProductModel } from 'src/app/shared/models/product.model';
 
 @Injectable({
@@ -7,12 +9,17 @@ import { ProductModel } from 'src/app/shared/models/product.model';
 })
 export class CartService {
   private cartItems: ProductModel[] = [];
-  private totalQuantity: number = 0;
-  private totalSum: number = 0;
+  private totalQuantity = 0;
+  private totalSum = 0;
 
   private subject$: BehaviorSubject<ProductModel[]> = new BehaviorSubject<ProductModel[]>([]);
 
-  constructor() {
+  constructor(private localStorageService: LocalStorageService) {
+    const cartData = this.localStorageService.get('cart');
+    if (cartData) {
+      this.cartItems = JSON.parse(cartData);
+      this.updateCartData();
+    }
   }
 
   getProducts(): Observable<ProductModel[]> {
@@ -100,7 +107,17 @@ export class CartService {
     }
   }
 
+  isEmptyCart(): boolean {
+    return !this.cartItems || this.cartItems.length === 0;
+  }
+
+  getProductInCart$(id: string | null): Observable<any> {
+    return this.getProducts().pipe(
+      map(items => items.find(item => id === item.id))
+    );
+  }
+
   private getProductInCart(id: string): ProductModel | undefined {
-    return this.cartItems.find((item) => item.id === id);
+    return this.cartItems.find((item) => id === item.id);
   }
 }

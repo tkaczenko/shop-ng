@@ -1,16 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CartListComponent } from './components/cart-list/cart-list.component';
+import { CartComponent, CartListComponent, ItemFormComponent } from '.';
 
 const routes: Routes = [
   {
     path: '',
-    component: CartListComponent,
+    component: CartComponent,
+    children: [
+      {
+        path: '',
+        component: CartListComponent,
+      },
+      {
+        path: 'edit/:productID',
+        component: ItemFormComponent
+      }
+    ]
   },
-  {
-    path: 'cart',
-    component: CartListComponent
-  }
 ];
 
 @NgModule({

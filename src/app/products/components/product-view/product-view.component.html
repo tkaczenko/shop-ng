@@ -1,38 +1,55 @@
-<mat-card fxFlex="100%" fxLayoutGap="5px" [ngClass]="{
+<div fxLayout="column">
+    <mat-toolbar>
+        <mat-toolbar-row fxFlex="100%">
+            <a fxLayoutAlign="start center" mat-icon-button routerLink="/products">
+                <mat-icon>backspace</mat-icon>
+            </a>
+            <span fxFlex></span>
+            <span>{{ product.id }} - {{ product.name | uppercase }}</span> 
+            <span fxFlex></span>
+            <a fxLayoutAlign="end center" mat-icon-button color="accent" routerLink="/cart">
+                <mat-icon>shopping_cart</mat-icon>
+                <span>{{ getTotalQuantity() }}</span>
+            </a>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-card fxFlex="100%" fxLayoutGap="5px" [ngClass]="{
     'phones': CATEGORY.PHONES === product.category, 
     'laptops': CATEGORY.LAPTOPS === product.category, 
     'watches': CATEGORY.WATCHES === product.category}">
-    <mat-card-title color="primary">
-        <span fxFlex="100%">
-            <mat-icon color="accent" matTooltip="В наличии" *ngIf="product.isAvailable">
-                done
-            </mat-icon>
-            <mat-icon color="accent" matTooltip="Нет в наличии" *ngIf="!product.isAvailable">
-                clear
-            </mat-icon>
-            {{ product.id }} - {{ product.name | uppercase }}
-        </span>
-    </mat-card-title>
-    <mat-card-content>
-        <div>
-            <p fxFlex="50%">Наименование</p>
-            <p fxFlex="50%">{{ product.name | uppercase }}</p>
-        </div>
-        <div>
-            <p fxFlex="50%">Категория</p>
-            <p fxFlex="50%">{{ product.category }}</p>
-        </div>
-        <div>
-            <p fxFlex="50%">Цена</p>
-            <p fxFlex="50%">{{ product.price | currency:'UAH':'symbol-narrow' }}</p>
-        </div>
-    </mat-card-content>
-    <mat-card-actions>
-        <button type="button" color="primary" mat-mini-fab matTooltip="Добавить в корзину" [disabled]="!product.isAvailable" (click)="onAdd()">
-            <mat-icon>add</mat-icon>
-        </button>
-        <button type="button" color="accent" mat-raised-button [disabled]="!product.isAvailable" (click)="onBuy()">
-            Купить
-        </button>
-    </mat-card-actions>
-</mat-card>
+        <mat-card-title color="primary">
+            <span fxFlex="100%">
+                <mat-icon color="accent" matTooltip="В наличии" *ngIf="product.isAvailable">
+                    done
+                </mat-icon>
+                <mat-icon color="accent" matTooltip="Нет в наличии" *ngIf="!product.isAvailable">
+                    clear
+                </mat-icon>
+                {{ product.id }} - {{ product.name | uppercase }}
+            </span>
+        </mat-card-title>
+        <mat-card-content>
+            <div>
+                <p fxFlex="50%">Наименование</p>
+                <p fxFlex="50%">{{ product.name | uppercase }}</p>
+            </div>
+            <div>
+                <p fxFlex="50%">Категория</p>
+                <p fxFlex="50%">{{ product.category }}</p>
+            </div>
+            <div>
+                <p fxFlex="50%">Цена</p>
+                <p fxFlex="50%">{{ product.price | currency:'UAH':'symbol-narrow' }}</p>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button type="button" color="primary" mat-mini-fab matTooltip="Добавить в корзину"
+                [disabled]="!product.isAvailable" (click)="onAdd()">
+                <mat-icon>add</mat-icon>
+            </button>
+            <button type="button" color="accent" mat-raised-button [disabled]="!product.isAvailable" (click)="onBuy()">
+                Купить
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>

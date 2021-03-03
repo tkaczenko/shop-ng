@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
+import { CartComponent, CartItemComponent, CartListComponent, ItemFormComponent } from '.';
 import { SharedModule } from '../shared/shared.module';
 import { CartRoutingModule } from './cart-routing.module';
-import { CartItemComponent } from './components/cart-item/cart-item.component';
-import { CartListComponent } from './components/cart-list/cart-list.component';
 
 
 const components = [
   CartListComponent,
   CartItemComponent,
+  CartComponent,
+  ItemFormComponent
 ];
 
 @NgModule({

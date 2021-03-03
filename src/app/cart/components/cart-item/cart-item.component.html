@@ -3,11 +3,10 @@
         <span fxFlex="100%">
             {{ item.id }} - {{ item.name | uppercase }}
         </span>
-        <mat-form-field fxFlex="100%" *ngIf="item.quantity">
-            <mat-label>Кол-во</mat-label>
-            <input matInput [(ngModel)]="quantity" (blur)="onBlur()">
-            <ng-template #error></ng-template>
-        </mat-form-field>
+        <div fxFlex="100%" *ngIf="item.quantity">
+            <p fxFlex="50%">Кол-во</p>
+            <p fxFlex="50%">{{ item.quantity }} </p>
+        </div>
     </mat-card-title>
     <mat-card-content>
         <div>
@@ -24,14 +23,8 @@
         </div>
     </mat-card-content>
     <mat-card-actions fxLayoutGap="5px" fxLayoutAlign="end center">
-        <button type="button" color="primary" mat-mini-fab matTooltip="Добавить" (click)="onPlus()">
-            <mat-icon>add</mat-icon>
-        </button>
-        <button type="button" color="primary" mat-mini-fab matTooltip="Убавить" (click)="onMinus()">
-            <mat-icon>remove</mat-icon>
-        </button>
-        <button type="button" color="primary" mat-mini-fab matTooltip="Сохранить" (click)="onChange()">
-            <mat-icon>save</mat-icon>
+        <button type="button" color="primary" mat-mini-fab matTooltip="Редактировать" [routerLink]="['edit', item.id]">
+            <mat-icon>edit</mat-icon>
         </button>
         <button type="button" color="accent" mat-mini-fab (click)="onRemove()">
             <mat-icon>delete</mat-icon>

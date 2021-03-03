@@ -8,4 +8,5 @@ export interface ProductModel {
     category: Category;
     isAvailable: boolean;
     quantity?: number;
+    image?: string;
 }
