@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { LocalStorageService } from 'src/app/core/services/local-storage.service';
 import { ProductModel } from 'src/app/shared/models/product.model';
 
 @Injectable({
@@ -7,16 +9,21 @@ import { ProductModel } from 'src/app/shared/models/product.model';
 })
 export class CartService {
   private cartItems: ProductModel[] = [];
-  private totalQuantity: number;
-  private totalSum: number;
+  private totalQuantity = 0;
+  private totalSum = 0;
 
-  private cart$: Subject<ProductModel[]> = new Subject();
+  private subject$: BehaviorSubject<ProductModel[]> = new BehaviorSubject<ProductModel[]>([]);
 
+  constructor(private localStorageService: LocalStorageService) {
+    const cartData = this.localStorageService.get('cart');
+    if (cartData) {
+      this.cartItems = JSON.parse(cartData);
+      this.updateCartData();
+    }
+  }
 
-  constructor() { }
-
-  getProducts(): Observable<Array<ProductModel>> {
-    return this.cart$.asObservable();
+  getProducts(): Observable<ProductModel[]> {
+    return this.subject$.asObservable();
   }
 
   addProduct(product: ProductModel): void {
@@ -32,15 +39,15 @@ export class CartService {
     }
   }
 
-  increaseQuantity(id: number, quantity: number | undefined): void {
+  increaseQuantity(id: string, quantity: number | undefined): void {
     this.changeQuantity(id, (quantity != null ? quantity : 0) + 1);
   }
 
-  decreaseQuantity(id: number, quantity: number | undefined): void {
+  decreaseQuantity(id: string, quantity: number | undefined): void {
     this.changeQuantity(id, (quantity != null ? quantity : 0) - 1);
   }
 
-  changeQuantity(id: number, quantity: number | undefined): void {
+  changeQuantity(id: string, quantity: number | undefined): void {
     if (quantity == null || quantity < 1) {
       return this.removeProduct(id);
     }
@@ -57,7 +64,7 @@ export class CartService {
     this.updateCartData();
   }
 
-  removeProduct(id: number): void {
+  removeProduct(id: string): void {
     // пересоздание ссылки
     this.cartItems = this.cartItems.filter(item => id !== item.id);
     this.updateCartData();
@@ -79,7 +86,7 @@ export class CartService {
   private updateCartData(): void {
     this.totalQuantity = this.calculateTotalQuantity();
     this.totalSum = this.calculateTotalSum();
-    this.cart$.next(Array.from(this.cartItems.values()));
+    this.subject$.next(Array.from(this.cartItems.values()));
   }
 
   private calculateTotalSum(): number {
@@ -100,7 +107,17 @@ export class CartService {
     }
   }
 
-  private getProductInCart(id: number): ProductModel | undefined {
-    return this.cartItems.find((item) => item.id === id);
+  isEmptyCart(): boolean {
+    return !this.cartItems || this.cartItems.length === 0;
+  }
+
+  getProductInCart$(id: string | null): Observable<any> {
+    return this.getProducts().pipe(
+      map(items => items.find(item => id === item.id))
+    );
+  }
+
+  private getProductInCart(id: string): ProductModel | undefined {
+    return this.cartItems.find((item) => id === item.id);
   }
 }

@@ -1,0 +1,25 @@
+<mat-toolbar>
+    <mat-toolbar-row fxFlex="100%">
+        <a fxLayoutAlign="start center" mat-icon-button [routerLink]="backRouter$ | async">
+            <mat-icon>backspace</mat-icon>
+        </a>
+        <span fxFlex></span>
+        <span>Корзина</span>
+        <span fxFlex></span>
+        <a fxLayoutAlign="end center" mat-icon-button color="accent" routerLink="/cart">
+            <mat-icon>shopping_cart</mat-icon>
+            <span>{{ getTotalQuantity() }}</span>
+        </a>
+    </mat-toolbar-row>
+</mat-toolbar>
+<router-outlet></router-outlet>
+<div fxLayout="column" fxLayoutAlign="center end">
+    <p>Итого: {{ getTotalSum() | currency:'UAH':'symbol' }}</p>
+    <p>Кол-во: {{ getTotalQuantity() }}</p>
+    <button type="button" color="primary" mat-raised-button (click)="onRemove()">
+        Oчистить
+    </button>
+    <button type="button" color="accent" mat-raised-button routerLink="./../order">
+        Купить
+    </button>
+</div>

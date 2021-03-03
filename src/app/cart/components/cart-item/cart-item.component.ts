@@ -1,56 +1,23 @@
-import { Component, DoCheck, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ProductModel } from 'src/app/shared/models/product.model';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-cart-item',
   templateUrl: './cart-item.component.html',
   styleUrls: ['./cart-item.component.scss'],
 })
-export class CartItemComponent implements DoCheck {
+export class CartItemComponent {
   @Input()
   item: ProductModel;
 
-  @Output()
-  removedItem = new EventEmitter<number>();
-  @Output()
-  increasedItem = new EventEmitter<ProductModel>();
-  @Output()
-  decreasedItem = new EventEmitter<ProductModel>();
-  @Output()
-  changedItem = new EventEmitter<{ id: number, quantity: number }>();
+  constructor(
+    private cartService: CartService
+  ) {
 
-  quantity?: any;
-  error: string;
-
-  constructor() { }
-
-  ngDoCheck(): void {
-    this.quantity = this.item.quantity;
-  }
-
-  onMinus(): void {
-    this.decreasedItem.emit(this.item);
-  }
-
-  onPlus(): void {
-    this.increasedItem.emit(this.item);
   }
 
   onRemove(): void {
-    this.removedItem.emit(this.item.id);
-  }
-
-  onChange(): void {
-    this.changedItem.emit({
-      id: this.item.id,
-      quantity: parseInt(this.quantity, 10)
-    });
-  }
-
-  onBlur(): void {
-    const temp = parseInt(this.quantity, 10);
-    if (isNaN(temp)) {
-      alert('не верное значение');
-    }
+    this.cartService.removeProduct(this.item.id);
   }
 }
