@@ -9,6 +9,9 @@ import { AuthGuard, IsCartEmptyGuard } from './shared';
 const routes: Routes = [
   {
     path: '',
+    // Это неверная форма записи
+    // https://next.angular.io/api/router/Route#lazy-loading
+    // Не создаются отдельные js файлы
     loadChildren: () => ProductsModule
   },
   {
