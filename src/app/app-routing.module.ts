@@ -1,32 +1,25 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AdminModule } from './admin/admin.module';
-import { CartModule } from './cart/cart.module';
-import { OrderModule } from './order/order.module';
-import { ProductsModule } from './products/products.module';
 import { AuthGuard, IsCartEmptyGuard } from './shared';
 
 const routes: Routes = [
   {
     path: '',
-    // Это неверная форма записи
-    // https://next.angular.io/api/router/Route#lazy-loading
-    // Не создаются отдельные js файлы
-    loadChildren: () => ProductsModule
+    loadChildren: () => import('./products/products.module').then(module => module.ProductsModule)
   },
   {
     path: 'cart',
-    loadChildren: () => CartModule
+    loadChildren: () => import('./cart/cart.module').then(module => module.CartModule)
   },
   {
     path: 'order',
     canLoad: [IsCartEmptyGuard],
-    loadChildren: () => OrderModule
+    loadChildren: () => import('./order/order.module').then(module => module.OrderModule)
   },
   {
     path: 'admin',
     canLoad: [AuthGuard],
-    loadChildren: () => AdminModule
+    loadChildren: () => import('./admin/admin.module').then(module => module.AdminModule)
   },
 ];
 
