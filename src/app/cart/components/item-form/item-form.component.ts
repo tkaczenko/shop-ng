@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -9,7 +9,8 @@ import { NavigationService } from '../../services/navigation.service';
 @Component({
   selector: 'app-item-form',
   templateUrl: './item-form.component.html',
-  styleUrls: ['./item-form.component.scss']
+  styleUrls: ['./item-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemFormComponent implements OnInit, OnDestroy {
   item: ProductModel;

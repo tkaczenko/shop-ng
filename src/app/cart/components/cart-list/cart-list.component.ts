@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ProductModel } from 'src/app/shared/models/product.model';
 import { CartService } from '../../services/cart.service';
@@ -8,6 +8,7 @@ import { NavigationService } from '../../services/navigation.service';
   selector: 'app-cart-list',
   templateUrl: './cart-list.component.html',
   styleUrls: ['./cart-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CartListComponent implements OnInit {
   keys = [{

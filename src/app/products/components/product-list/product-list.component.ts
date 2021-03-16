@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CartService } from 'src/app/cart/services/cart.service';
 import { ProductModel } from '../../../shared/models/product.model';
@@ -8,6 +8,7 @@ import { ProductsService } from '../../services/products.service';
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductListComponent implements OnInit {
   products: Observable<ProductModel[]>;

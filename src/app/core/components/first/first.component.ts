@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, Optional } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit, Optional } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CartService } from 'src/app/cart/services/cart.service';
 import { ProductModel } from 'src/app/shared/models/product.model';
@@ -11,7 +11,8 @@ import { LocalStorageService } from '../../services/local-storage.service';
 @Component({
   selector: 'app-first',
   templateUrl: './first.component.html',
-  styleUrls: ['./first.component.scss']
+  styleUrls: ['./first.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FirstComponent implements OnInit {
 

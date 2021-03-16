@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { CartService } from 'src/app/cart';
@@ -9,7 +9,8 @@ import { ProductsService } from '../../services/products.service';
 @Component({
   selector: 'app-product-view',
   templateUrl: './product-view.component.html',
-  styleUrls: ['./product-view.component.scss']
+  styleUrls: ['./product-view.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductViewComponent implements OnInit {
   product: ProductModel;

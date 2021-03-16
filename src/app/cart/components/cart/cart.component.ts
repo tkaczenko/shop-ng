@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CartService } from '../../services/cart.service';
 import { NavigationService } from '../../services/navigation.service';
@@ -6,7 +6,8 @@ import { NavigationService } from '../../services/navigation.service';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.scss']
+  styleUrls: ['./cart.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CartComponent implements OnInit {
 
