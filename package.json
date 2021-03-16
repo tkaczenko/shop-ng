@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "~11.0.9",
     "@angular/router": "~11.0.9",
     "@types/lodash": "^4.14.168",
+    "json-server": "^0.16.3",
     "lodash": "^4.17.21",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
