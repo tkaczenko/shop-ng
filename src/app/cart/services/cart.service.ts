@@ -65,7 +65,6 @@ export class CartService {
   }
 
   removeProduct(id: string): void {
-    // пересоздание ссылки
     this.cartItems = this.cartItems.filter(item => id !== item.id);
     this.updateCartData();
   }

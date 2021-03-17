@@ -1,6 +1,7 @@
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { Category } from 'src/app/shared/models/category.model';
 import { ProductModel } from '../../shared/models/product.model';
 
@@ -35,8 +36,9 @@ export const PRODUCTS: ProductModel[] = [
   providedIn: 'root'
 })
 export class ProductsService implements Resolve<ProductModel[]> {
+  private productsUrl = 'http://localhost:3000/products';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): ProductModel[]
     | Observable<ProductModel[]>
@@ -44,11 +46,19 @@ export class ProductsService implements Resolve<ProductModel[]> {
     return this.getProducts();
   }
 
-  getProducts(): Observable<ProductModel[]> {
-    return of(PRODUCTS);
+  getProducts(): Promise<ProductModel[]> {
+    return this.http.get(this.productsUrl)
+      .toPromise()
+      .then(resp => resp as ProductModel[])
+      .catch(this.handleError);
   }
 
   getProduct(id: string | null): Observable<any> {
     return of(PRODUCTS.find(product => id === product.id));
+  }
+
+  private handleError(err: HttpErrorResponse): Promise<never> {
+    console.error('An error occurred', err);
+    return Promise.reject(err.message || err);
   }
 }

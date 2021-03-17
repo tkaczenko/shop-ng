@@ -6,6 +6,7 @@ import { ClickDirective } from './directives/click.directive';
 import { OrderByPipe } from './pipes/order-by.pipe';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../material/material.module';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { MaterialModule } from '../material/material.module';
   imports: [
     CommonModule,
     FormsModule,
+    HttpClientModule,
     MaterialModule,
   ],
   exports: [CommonModule, FormsModule, MaterialModule, CategoryPipe, HighlightDirective, ClickDirective, OrderByPipe]

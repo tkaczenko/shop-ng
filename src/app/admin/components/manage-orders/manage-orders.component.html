@@ -1,1 +1,5 @@
-<p>manage-orders works!</p>
+<mat-list *ngFor="let order of orders | async">
+    <mat-list-item>
+        {{ order.id }} - {{ order.items[0].name }} x {{ order.items[0].count }}
+    </mat-list-item>
+</mat-list>

@@ -11,7 +11,7 @@ import { ProductsService } from '../../services/products.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductListComponent implements OnInit {
-  products: Observable<ProductModel[]>;
+  products: Promise<ProductModel[]>;
 
   constructor(
     private productsService: ProductsService,
