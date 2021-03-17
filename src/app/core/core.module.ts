@@ -5,6 +5,7 @@ import { ConfigModel } from './models/config.model';
 import { configToken, generatedString, generatorFactory } from './services/constants.service';
 import { GeneratorService } from './services/generator.service';
 import { LocalStorageService } from './services/local-storage.service';
+import { LoginComponent } from './components/login/login.component';
 
 export const configValue: ConfigModel = {
   id: '',
@@ -14,7 +15,7 @@ export const configValue: ConfigModel = {
 
 
 @NgModule({
-  declarations: [FirstComponent],
+  declarations: [FirstComponent, LoginComponent],
   imports: [
     SharedModule,
   ],
@@ -33,6 +34,6 @@ export const configValue: ConfigModel = {
       useClass: LocalStorageService,
     }
   ],
-  exports: [FirstComponent],
+  exports: [FirstComponent, LoginComponent],
 })
 export class CoreModule { }

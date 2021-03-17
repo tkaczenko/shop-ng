@@ -1,1 +1,8 @@
-<p>process-order works!</p>
+<div>
+    <mat-list *ngFor="let item of order.items">
+        <mat-list-item>
+            {{ item.name }} x {{ item.count }}
+        </mat-list-item>
+    </mat-list>
+    <button type="button" mat-raised-button color="accent" (click)="onOrder()">Купить</button>
+</div>

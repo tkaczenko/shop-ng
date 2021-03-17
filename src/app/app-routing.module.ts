@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './core/components/login/login.component';
 import { AuthGuard, IsCartEmptyGuard } from './shared';
 
 const routes: Routes = [
@@ -15,6 +16,10 @@ const routes: Routes = [
     path: 'order',
     canLoad: [IsCartEmptyGuard],
     loadChildren: () => import('./order/order.module').then(module => module.OrderModule)
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   },
   {
     path: 'admin',
