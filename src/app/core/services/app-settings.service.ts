@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { defaultIfEmpty, retry, switchMap } from 'rxjs/operators';
+import { defaultIfEmpty, retry, switchMap, tap } from 'rxjs/operators';
 import * as settingsFromAssets from '../../../assets/app-settings.json';
 import { AppSettingsModel } from '../models/app-settings.model';
 import { LocalStorageService } from './local-storage.service';
@@ -18,17 +18,21 @@ export class AppSettingsService {
       switchMap((savedSettings) => {
         if (savedSettings === null) {
           this.localStorage.set(this.key, JSON.stringify(settingsFromAssets));
-          return of(settingsFromAssets);
+          // Тут происходит загрузка не данных, а модуля,
+          // поэтому структура другая, надо загрузить данные с помощью HttpClient
+          // return of(settingsFromAssets);
+          return of({id: 1});
         }
         return of(JSON.parse(savedSettings));
       }),
       retry(2),
-      defaultIfEmpty(<AppSettingsModel>{
-        title: "default",
-        id: "default",
-        login: "default",
-        email: "default"
-      })
+      defaultIfEmpty({
+        title: 'default',
+        id: 'default',
+        login: 'default',
+        email: 'default'
+      } as AppSettingsModel),
+      tap(val => console.log(val))
     );
   }
 }
