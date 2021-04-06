@@ -21,7 +21,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     this.appSettingsService.load().pipe(
       takeUntil(this.unsubscribe)
     ).subscribe((settings: any) => {
-      // почему объект настройки сохранен в объект с полем default? и как это исправить?
       console.log(settings);
       this.title = settings.default?.title;
     });
