@@ -1,8 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { Observable, of } from 'rxjs';
+import { catchError, filter, map } from 'rxjs/operators';
 import { CartService } from 'src/app/cart/services/cart.service';
 import { ProductModel } from '../../../shared/models/product.model';
-import { ProductsService } from '../../services/products.service';
+import { ProductsModule } from '../../products.module';
+import { ProductsActions } from '../../state';
+import * as fromProducts from '../../state/products.reducer';
 
 @Component({
   selector: 'app-product-list',
@@ -11,15 +15,19 @@ import { ProductsService } from '../../services/products.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductListComponent implements OnInit {
-  products: Promise<ProductModel[]>;
+  products$: Observable<ProductModel[]>;
 
   constructor(
-    private productsService: ProductsService,
+    private store: Store<fromProducts.ProductsState>,
     private cartService: CartService
   ) { }
 
   ngOnInit(): void {
-    this.products = this.productsService.getProducts();
+    this.store.dispatch(ProductsActions.loadProducts());
+    this.products$ = this.store.pipe(
+      select(fromProducts.selectProductEntitiesState),
+      map(products => Object.values(products) as ProductModel[])
+    );
   }
 
   onAddToCart(product: ProductModel): void {

@@ -11,7 +11,7 @@
         </mat-toolbar-row>
     </mat-toolbar>
     <div fxLayout="column" fxFlex="100%" fxLayoutGap="10px">
-        <app-product *ngFor="let product of products | async" [product]="product" (addedToCart)="onAddToCart($event)">
+        <app-product *ngFor="let product of products$ | async" [product]="product" (addedToCart)="onAddToCart($event)">
         </app-product>
     </div>
 </div>
